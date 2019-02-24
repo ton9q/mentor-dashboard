@@ -1,0 +1,59 @@
+{
+  "name": "mentor-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint -c .eslintrc.js ./src/**/*.js ./src/**/*.jsx",
+    "client-build": "webpack --mode production",
+    "client-build-dev": "webpack --mode development",
+    "client-start": "webpack --mode development && webpack-dev-server --mode development --open",
+    "server-clean": "rm -rf dist-server && mkdir dist-server",
+    "server-build": "npm run server-clean && babel ./server -d ./dist-server",
+    "server-start": "npm run server-build && nodemon ./dist-server/app.js",
+    "heroku-postbuild": "bash scripts/build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ton9q/mentor-dashboard.git"
+  },
+  "engines": {
+    "node": "10.x",
+    "npm": "6.x"
+  },
+  "author": "ton9q",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ton9q/mentor-dashboard/issues"
+  },
+  "homepage": "https://github.com/ton9q/mentor-dashboard#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.14.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-select": "^2.4.1",
+    "xlsx": "^0.14.1"
+  }
+}
