@@ -39,13 +39,16 @@ class SelectBox extends Component {
     const { mentors } = this.state;
     const { selected, onSelect } = this.props;
 
+    const valueObj = {
+      label: selected,
+      value: selected,
+    };
+
     return (
       <Fragment>
         <Select
-        className = 'SelectBox'
-          // className="basic-single"
-          // classNamePrefix="select"
-          defaultValue={selected}
+          className="SelectBox"
+          value={valueObj}
           isClearable={true}
           isSearchable={true}
           options={mentors}
