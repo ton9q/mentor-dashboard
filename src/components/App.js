@@ -7,7 +7,6 @@ import TableColorValue from './tableColorValue/tableColorValue';
 import './App.css';
 
 import { fb } from '../services/firebaseService';
-import data from '../../assets/data/data.json';
 
 import { getNicknameFromGithubLink } from '../constants/index';
 
@@ -17,8 +16,8 @@ class App extends Component {
 
     this.state = {
       selected: '',
-      data: data,
-      username: null,
+      data: null,
+      user: null,
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -26,23 +25,20 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // async componentDidMount() {
-  //   await fetch('/data', {
-  //     method: 'GET',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       this.setState({ data });
-  //       console.log(this.state.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err); // eslint-disable-line
-  //     });
-  // }
+  componentDidMount() {
+    fetch('/data', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ data }))
+      .catch(err => {
+        console.log(err); // eslint-disable-line
+      });
+  }
 
   onSelect(selected) {
     this.setState({ selected: selected.value });
@@ -51,8 +47,12 @@ class App extends Component {
   login() {
     fb.login()
       .then(data => {
-        const username = data.additionalUserInfo.username;
-        this.setState({ username });
+        const user = {
+          name: data.additionalUserInfo.profile.login,
+          photo: data.additionalUserInfo.profile.avatar_url,
+        };
+
+        this.setState({ user });
       })
       .catch(function(error) {
         console.log(error.message); //eslint-disable-line
@@ -62,7 +62,7 @@ class App extends Component {
   logout() {
     fb.logout()
       .then(() => {
-        this.setState({ username: null });
+        this.setState({ user: null });
       })
       .catch(function(error) {
         console.log(error.message); //eslint-disable-line
@@ -70,21 +70,22 @@ class App extends Component {
   }
 
   render() {
-    const { selected, data, username } = this.state;
-    console.log('data', data);
+    const { selected, data, user } = this.state;
 
     const mentors = [];
-    data.pairs.forEach(element => {
-      mentors.push(element.mentor);
-    });
+    if (data !== null) {
+      data.pairs.forEach(element => {
+        mentors.push(element.mentor);
+      });
+    }
     let mentorLogined = false;
 
-    if (username) {
+    if (user !== null) {
       mentorLogined = true; // for all users which authorized
 
       mentors.map(mentor => {
         const githubName = getNicknameFromGithubLink(mentor.github);
-        if (githubName === username) {
+        if (githubName === user.name) {
           mentorLogined = true;
         }
       });
@@ -92,23 +93,35 @@ class App extends Component {
 
     return (
       <Fragment>
-        <h1 className="mainHeader">Mentor Dashboard</h1>
-        {username === null ? (
-          <button onClick={this.login}>login</button>
-        ) : (
-          <div>
-            <button onClick={this.logout}>logout</button>
-            <span>Hello, {username}!</span>
+        <h1 className="header">Mentor Dashboard</h1>
+
+        {user === null ? (
+          <div className="nav">
+            <button onClick={this.login}>login</button>
           </div>
+        ) : (
+          <nav className="nav">
+            <button onClick={this.logout}>logout</button>
+            <div className="welcome">
+              <span>Hello, {user.name}!</span>{' '}
+            </div>
+            <img src={`${user.photo}`} alt="photo" />
+          </nav>
         )}
+
         {mentorLogined ? (
-          <div>
+          <div className="main">
             <TableColorValue />
             <SelectBox mentors={mentors} selected={selected} onSelect={this.onSelect} />
             {selected !== '' && <TableBox data={data} selected={selected} />}
           </div>
         ) : (
-          <div />
+          <div className="main">
+            <p className="messageforAutorization">
+              Sorry, but you are not mentor or not authorized! <br />
+              You can`t see the content of the app.
+            </p>
+          </div>
         )}
       </Fragment>
     );

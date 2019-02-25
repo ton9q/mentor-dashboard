@@ -13,7 +13,8 @@
     "server-clean": "rm -rf dist-server && mkdir dist-server",
     "server-build": "npm run server-clean && babel ./server -d ./dist-server",
     "server-start": "npm run server-build && nodemon ./dist-server/app.js",
-    "heroku-postbuild": "bash scripts/build.sh"
+    "heroku-postbuild": "bash scripts/build.sh",
+    "generate": "npm run client-build-dev && nodemon ./dist-server/app.js"
   },
   "repository": {
     "type": "git",
