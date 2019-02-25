@@ -7,7 +7,7 @@ import TableColorValue from './tableColorValue/tableColorValue';
 import './App.css';
 
 import { fb } from '../services/firebaseService';
-import data from '../../data/data.json';
+import data from '../../assets/data/data.json';
 
 import { getNicknameFromGithubLink } from '../constants/index';
 
@@ -26,6 +26,24 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  // async componentDidMount() {
+  //   await fetch('/data', {
+  //     method: 'GET',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       this.setState({ data });
+  //       console.log(this.state.data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err); // eslint-disable-line
+  //     });
+  // }
+
   onSelect(selected) {
     this.setState({ selected: selected.value });
   }
@@ -37,7 +55,7 @@ class App extends Component {
         this.setState({ username });
       })
       .catch(function(error) {
-        console.log(error.message);
+        console.log(error.message); //eslint-disable-line
       });
   }
 
@@ -47,12 +65,14 @@ class App extends Component {
         this.setState({ username: null });
       })
       .catch(function(error) {
-        console.log(error.message);
+        console.log(error.message); //eslint-disable-line
       });
   }
 
   render() {
     const { selected, data, username } = this.state;
+    console.log('data', data);
+
     const mentors = [];
     data.pairs.forEach(element => {
       mentors.push(element.mentor);
