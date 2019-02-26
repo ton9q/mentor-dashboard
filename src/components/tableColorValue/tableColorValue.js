@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { STATUS_COLORS } from '../../constants/index';
 
-// import './tableColorValue';
+import './tableColorValue.css';
 
 class TableColorValue extends Component {
   constructor() {
@@ -33,25 +33,43 @@ class TableColorValue extends Component {
   }
 
   render() {
+    let styleButton;
+
+    if (this.state.showMenu) {
+      styleButton = {
+        backgroundColor: 'rgb(255, 255, 255)',
+        color: 'rgb(0, 0, 0)',
+      };
+    } else styleButton = {};
+
     return (
-      <div>
-        <div style={{ height: '100px' }} onClick={this.showMenu}>
+      <div className="color-menu">
+        <button className="color-menu__header" style={styleButton} onClick={this.showMenu}>
           Color value
-        </div>
+        </button>
 
         {this.state.showMenu ? (
           <div
-            style={{ position: 'absolute', zIndex: 1, top: '100px' }}
-            className="tableColorValue"
+            className="table-color-value"
             ref={element => {
               this.dropdownMenu = element;
             }}
           >
-            <div className={`${STATUS_COLORS.checked}`}>Checked</div>
-            <div className={`${STATUS_COLORS.inProgress}`}>In Progress</div>
-            <div className={`${STATUS_COLORS.checking}`}>Checking</div>
-            <div className={`${STATUS_COLORS.notPassed}`}>Not Passed</div>
-            <div className={`${STATUS_COLORS.noStatus}`}>ToDo</div>
+            <div className={`${STATUS_COLORS.checked}`}>
+              <span>Checked</span>
+            </div>
+            <div className={`${STATUS_COLORS.inProgress}`}>
+              <span>In Progress</span>
+            </div>
+            <div className={`${STATUS_COLORS.checking}`}>
+              <span>Checking</span>
+            </div>
+            <div className={`${STATUS_COLORS.notPassed}`}>
+              <span>Not Passed</span>
+            </div>
+            <div className={`${STATUS_COLORS.noStatus}`}>
+              <span>ToDo</span>
+            </div>
           </div>
         ) : null}
       </div>

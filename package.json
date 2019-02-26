@@ -8,7 +8,7 @@
     "lint": "eslint -c .eslintrc.js ./src/**/*.js ./src/**/*.jsx ./server/**/*.js",
     "client-build": "webpack --mode production",
     "client-build-dev": "webpack --mode development",
-    "client-start": "webpack --mode development && webpack-dev-server --mode development --open",
+    "client-start": "webpack --mode development && webpack-dev-server --mode development --open --hot --inline",
     "create-json": "node server/script.js",
     "server-clean": "rm -rf dist-server && mkdir dist-server",
     "server-build": "npm run server-clean && babel ./server -d ./dist-server",

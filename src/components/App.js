@@ -97,15 +97,17 @@ class App extends Component {
 
         {user === null ? (
           <div className="nav">
-            <button onClick={this.login}>login</button>
+            <button className="login" onClick={this.login}>Login</button>
           </div>
         ) : (
           <nav className="nav">
-            <button onClick={this.logout}>logout</button>
-            <div className="welcome">
-              <span>Hello, {user.name}!</span>{' '}
+            <button onClick={this.logout}>Logout</button>
+            <div className="right">
+              <div className="welcome">
+                <span>Hello, {user.name}!</span>
+              </div>
+              <img src={`${user.photo}`} alt="photo" />
             </div>
-            <img src={`${user.photo}`} alt="photo" />
           </nav>
         )}
 
@@ -117,7 +119,7 @@ class App extends Component {
           </div>
         ) : (
           <div className="main">
-            <p className="messageforAutorization">
+            <p className="message-for-autorization">
               Sorry, but you are not mentor or not authorized! <br />
               You can`t see the content of the app.
             </p>

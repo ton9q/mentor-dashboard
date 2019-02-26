@@ -6,7 +6,7 @@ import TableBody from './tableBody/tableBody';
 
 import { compare, getNicknameFromGithubLink } from '../../constants/index';
 
-// import './table.css';
+import './tableBox.css';
 
 class TableBox extends Component {
   render() {
@@ -49,8 +49,8 @@ class TableBox extends Component {
     });
 
     return (
-      <div className="student-results">
-        <table className="tableBox">
+      <div className="student-results table-container">
+        <table className="table-box">
           <TableHead students={studentsNicknames} />
           <TableBody tasks={studentsTasks} />
         </table>

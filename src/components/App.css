@@ -1,3 +1,5 @@
+/* colors */
+
 td.green,
 div.green {
   background-color: green;
@@ -21,4 +23,86 @@ div.orange {
 td.yellow,
 div.yellow {
   background-color: yellow;
+}
+
+/* app */
+
+.header {
+  text-align: center;
+  transition: 1.5s all;
+  cursor: pointer;
+}
+
+.header:hover {
+  color: rgb(255, 255, 255);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav .left {
+  margin: 0 20px;
+}
+
+.nav button {
+  cursor: pointer;
+  background-color: transparent;
+  padding: 15px 30px;
+  border: 2px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-style: bold;
+  font-size: 20px;
+  transition: 1s all;
+  outline: none;
+}
+
+.nav button:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.nav button.login {
+  margin: auto;
+}
+
+.nav .right {
+  display: flex;
+  align-items: center;
+}
+
+.nav .right .welcome {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.nav .right img {
+  margin: 0 20px;
+  cursor: pointer;
+  transition: 1s all;
+}
+
+.nav .right img:hover {
+  opacity: 0.6;
+}
+
+.nav img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.main .message-for-autorization {
+  text-align: center;
+  font-size: 25px;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav .left,
+  .nav .right img {
+    margin: 0;
+  }
 }

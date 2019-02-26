@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Select from 'react-select';
 
+import './selectBox.css';
+
 import { getNicknameFromGithubLink } from '../../constants/index';
 
 class SelectBox extends Component {
