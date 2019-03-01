@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": "> 5%"
+        }
+      }
+    ],
+    "react"
+  ],
+  "plugins": ["babel-plugin-transform-object-rest-spread"]
+}

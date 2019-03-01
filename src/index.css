@@ -1,0 +1,10 @@
+body {
+  background: url('../assets/img/backgroundImage.jpg') no-repeat fixed center; 
+}
+
+@media only screen and (min-width: 900px) {
+  body {
+    background: url('../assets/img/backgroundImage.jpg') cover; 
+    background-size: 100% 100%;
+  }
+}
