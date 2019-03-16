@@ -7,6 +7,7 @@ import TableColorValue from './tableColorValue/tableColorValue';
 import './App.css';
 
 import { fb } from '../services/firebaseService';
+import { userLoggedIn } from '../services/userLoggedInService';
 
 import { getNicknameFromGithubLink } from '../constants/index';
 
@@ -17,7 +18,7 @@ class App extends Component {
     this.state = {
       selected: '',
       data: null,
-      user: null,
+      user: userLoggedIn.get(),
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -53,6 +54,8 @@ class App extends Component {
         };
 
         this.setState({ user });
+
+        userLoggedIn.save(user);
       })
       .catch(function(error) {
         console.log(error.message); //eslint-disable-line
@@ -63,6 +66,8 @@ class App extends Component {
     fb.logout()
       .then(() => {
         this.setState({ user: null });
+
+        userLoggedIn.remove();
       })
       .catch(function(error) {
         console.log(error.message); //eslint-disable-line
@@ -70,25 +75,30 @@ class App extends Component {
   }
 
   render() {
-    const { selected, data, user } = this.state;
+    const { data, user } = this.state;
+    let { selected } = this.state;
 
     const mentors = [];
+    let mentorLogined = false;
+
     if (data !== null) {
       data.pairs.forEach(element => {
         mentors.push(element.mentor);
       });
-    }
-    let mentorLogined = false;
 
-    if (user !== null) {
-      mentorLogined = true; // for all users which authorized
+      if (user !== null) {
+        mentorLogined = true; // for all users which authorized
+  
+        mentors.map(mentor => {
+          const githubName = getNicknameFromGithubLink(mentor.github);
 
-      mentors.map(mentor => {
-        const githubName = getNicknameFromGithubLink(mentor.github);
-        if (githubName === user.name) {
-          mentorLogined = true;
-        }
-      });
+          if (githubName === user.name) {
+            mentorLogined = true;
+  
+            selected = user.name;
+          }
+        });
+      }
     }
 
     return (
