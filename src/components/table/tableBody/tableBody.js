@@ -9,8 +9,8 @@ class TableBody extends Component {
 
     return (
       <tbody>
-        {tasks.map(task => (
-          <TableRow key={task.name} task={task} />
+        {tasks.map((task, index) => (
+          <TableRow key={`${task.name}-${index}`} task={task} />
         ))}
       </tbody>
     );

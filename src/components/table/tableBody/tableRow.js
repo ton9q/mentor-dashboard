@@ -48,7 +48,7 @@ const TableRow = props => {
 
   return (
     <tr>
-      <td className={`table-item ${colorTask}`} key={task.name}>
+      <td className={`table-item ${colorTask}`} key={`${task.name}-${colorTask}`}>
         {task.link === '' ? (
           <a href="#">{task.name}</a>
         ) : (
@@ -58,7 +58,7 @@ const TableRow = props => {
         )}
       </td>
       {task.marks.map((mark, index) => (
-        <TableItem key={task.name} mark={mark} color={colorMark[index]} />
+        <TableItem key={`${task.name}-${index}`} mark={mark} color={colorMark[index]} />
       ))}
     </tr>
   );
